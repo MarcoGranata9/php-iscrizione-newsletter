@@ -1,4 +1,9 @@
-<?php include_once __DIR__ . "/partials/functions.php" ?>
+<?php 
+include_once __DIR__ . "/partials/functions.php";
+
+session_start();
+$_SESSION["email"] = "";
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -13,18 +18,22 @@
     <div class="container">
         <div class="row mt-5 justify-content-center">
             <div class="col-6 justify-content-center">
-                <form action="index.php" method="GET">
+                <h1 class="pb-5">Registrati alla Newsletter!</h1>
+                <form action="index.php" method="POST">
                     <label for="email">Inserisci la tua E-mail</label>
-                    <input id="email" name="email" type="email">
+                    <input id="email" name="email" type="text" <?php if(isset($_POST["email"])) {echo " value='".$_POST["email"]."'";} ?>>
+                    <button class="btn btn-primary" type="submit">Invia</button>
                     <?php
-                    if (isset($_GET["email"])) {
-                        if (email_check($_GET["email"])) { ?>
-                           <p class="alert alert-success mt-2"><?php echo "email valida"; ?></p> 
+                    if (isset($_POST["email"])) {
+                        if (email_check($_POST["email"])) { ?>
+                           <p class="alert alert-success mt-2"><?php echo "email valida"; ?></p>
+                           <?php
+                            $_SESSION["email"] = $_POST["email"];
+                            header("Location: ./thankyou.php") 
+                           ?>
                     <?php  } else { ?>
-                            <p class="alert alert-danger mt-2"><?php echo "email non valida"; ?></p>
+                            <p class="alert alert-danger mt-2"><?php echo "email non valida, riprova"; ?></p>
                     <?php }} ?>
-
-                    <button type="submit">Invia</button>
                 </form>
             </div>
         </div>
