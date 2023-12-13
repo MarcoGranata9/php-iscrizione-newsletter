@@ -1,3 +1,4 @@
+<?php include_once __DIR__ . "/partials/functions.php" ?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -17,10 +18,10 @@
                     <input id="email" name="email" type="email">
                     <?php
                     if (isset($_GET["email"])) {
-                        if (str_contains($_GET["email"], "@") && str_contains($_GET["email"], ".")) { ?>
-                           <p><?php echo "email valida"; ?></p> 
+                        if (email_check($_GET["email"])) { ?>
+                           <p class="alert alert-success mt-2"><?php echo "email valida"; ?></p> 
                     <?php  } else { ?>
-                            <p><?php echo "email non valida"; ?></p>
+                            <p class="alert alert-danger mt-2"><?php echo "email non valida"; ?></p>
                     <?php }} ?>
 
                     <button type="submit">Invia</button>
