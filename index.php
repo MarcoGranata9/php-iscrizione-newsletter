@@ -1,5 +1,4 @@
 
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,11 +12,19 @@
     <div class="container">
         <div class="row mt-5 justify-content-center">
             <div class="col-6 justify-content-center">
-                <form action="">
+                <form action="index.php" method="GET">
                     <label for="email">Inserisci la tua E-mail</label>
                     <input id="email" name="email" type="email">
-                </form>
+                    <?php
+                    if (isset($_GET["email"])) {
+                        if (str_contains($_GET["email"], "@") && str_contains($_GET["email"], ".")) { ?>
+                           <p><?php echo "email valida"; ?></p> 
+                    <?php  } else { ?>
+                            <p><?php echo "email non valida"; ?></p>
+                    <?php }} ?>
 
+                    <button type="submit">Invia</button>
+                </form>
             </div>
         </div>
     </div>
